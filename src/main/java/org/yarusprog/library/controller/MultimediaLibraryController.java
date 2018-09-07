@@ -48,7 +48,9 @@ public class MultimediaLibraryController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam String error, @RequestParam String logout, Model model) {
+    public String login(
+            @RequestParam(defaultValue = "false") boolean error, @RequestParam(defaultValue = "false") boolean logout,
+            Model model) {
         model.addAttribute("error", error);
         model.addAttribute("logout", logout);
         return "/login";

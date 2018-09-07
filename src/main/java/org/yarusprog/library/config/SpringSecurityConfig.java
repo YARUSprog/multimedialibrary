@@ -17,16 +17,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/about").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER")
+                .antMatchers("/", "/home", "/about", "/test").permitAll()
+                .antMatchers("/admin").hasAnyRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/home").usernameParameter("username")
+                .passwordParameter("password")
                 .permitAll()
                 .and()
-                .logout()
+                .logout().logoutSuccessUrl("/login?logout=true")
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
@@ -35,8 +36,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
+                .withUser("user").password("user").roles("USER")
                 .and()
-                .withUser("admin").password("password").roles("ADMIN");
+                .withUser("admin").password("admin").roles("ADMIN");
     }
 }

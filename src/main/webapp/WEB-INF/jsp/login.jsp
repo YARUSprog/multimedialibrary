@@ -20,13 +20,13 @@
                     <h1>Please Sign In</h1>
 
 
-                    <c:if test="${not empty param.error}">
+                    <c:if test="${error eq true}">
                         <div class="alert alert-danger">
                             Invalid username and password.
                         </div>
                     </c:if>
 
-                    <c:if test="${not empty param.logout}">
+                    <c:if test="${logout eq true}">
                         <div class="alert alert-info">
                             You have been logged out.
                         </div>
