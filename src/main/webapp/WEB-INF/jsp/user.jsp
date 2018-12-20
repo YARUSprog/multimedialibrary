@@ -16,7 +16,7 @@
         <h1>User page (Spring Security protected)</h1>
 
         <h1>Hello ${httpServletRequest.remoteUser}!</h1>
-        <form th:action="/logout" method="post">
+        <form action="/logout" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
 
