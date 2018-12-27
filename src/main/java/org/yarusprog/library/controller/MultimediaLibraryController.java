@@ -1,27 +1,22 @@
 package org.yarusprog.library.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.yarusprog.library.dto.UserDto;
 import org.yarusprog.library.facade.UserFacade;
-import org.yarusprog.library.model.Role;
-import org.yarusprog.library.model.User;
-import org.yarusprog.library.repository.RoleRepository;
-import org.yarusprog.library.service.UserService;
+import org.yarusprog.library.model.UserModel;
+import org.yarusprog.library.repository.UserRoleRepository;
+
+import javax.validation.Valid;
 
 @Controller
 public class MultimediaLibraryController {
@@ -30,7 +25,7 @@ public class MultimediaLibraryController {
     private UserFacade userFacade;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private UserRoleRepository userRoleRepository;
 
     @Value("${welcome.message}")
     private String message = "Hello World";
@@ -61,7 +56,7 @@ public class MultimediaLibraryController {
         return "/admin";
     }
 
-    @Secured({"ADMIN","USER"})
+    @Secured({"ADMIN","AUTHOR"})
     @GetMapping("/user")
     public String user() {
         return "/user";
@@ -116,17 +111,20 @@ public class MultimediaLibraryController {
 
     @GetMapping("/registrationTemp")
     public String registrationTemp(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("userForm", new UserModel());
 
-        Role role = new Role();
-        role.setName("ADMIN");
-        role = roleRepository.save(role);
+//        UserRoleModel role = new UserRoleModel();
+//        role.setName("ADMIN");
+//        role = userRoleRepository.save(role);
 
         UserDto userDto = new UserDto();
         userDto.setEmail("yarusprog@gmail.com");
         userDto.setPassword("yarusprog@gmail.com");
-        userDto.setLastName("musiienko");
-        userDto.setName("yaroslav");
+        userDto.setFirstName("musiienko");
+        userDto.setLastName("yaroslav");
+        userDto.setMiddleName("romanovich");
+        userDto.setAccountNonLocked(true);
+        userDto.setEnable(true);
         userFacade.saveUser(userDto);
         return "login";
     }

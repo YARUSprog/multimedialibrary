@@ -1,12 +1,12 @@
-INSERT INTO user_role (id, name) VALUES (1, 'ADMIN');
-INSERT INTO user_role (id, name) VALUES (2, 'CUSTOMER');
-INSERT INTO user_role (id, name) VALUES (3, 'CSR');
-INSERT INTO user_role (id, name) VALUES (4, 'PMG');
+INSERT INTO user_roles (id, name) VALUES (1, 'ADMIN');
+INSERT INTO user_roles (id, name) VALUES (2, 'AUTHOR');
+--INSERT INTO user_role (id, name) VALUES (3, 'CSR');
+--INSERT INTO user_role (id, name) VALUES (4, 'PMG');
 
 -- password - 123123
-INSERT INTO "users" (
-  password, name, last_name, email, enable, role_id)
-VALUES ('$2a$10$mJfq5rmvQR66o1xBN2xMzeptwYaxogOToWzvbVUeEHol.pe/jABia', 'John', 'Doe', 'admin@gmail.com', TRUE, 1);
+--INSERT INTO "users" (
+--  password, name, last_name, email, enable, role_id)
+--VALUES ('$2a$10$mJfq5rmvQR66o1xBN2xMzeptwYaxogOToWzvbVUeEHol.pe/jABia', 'John', 'Doe', 'admin@gmail.com', TRUE, 1);
 
 
 

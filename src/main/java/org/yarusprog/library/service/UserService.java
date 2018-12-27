@@ -1,12 +1,12 @@
 package org.yarusprog.library.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.yarusprog.library.model.User;
+import org.yarusprog.library.model.UserModel;
 
 public interface UserService extends UserDetailsService {
-    User findUserByEmail(String email);
+    UserModel findUserByEmail(String email);
 
-    void saveUser(User user);
+    void saveUser(UserModel user);
 
     String findLoggedInUserEmail();
 

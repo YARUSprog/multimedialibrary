@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserDto {
 
-    private int id;
+    private long id;
 
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
@@ -16,19 +16,30 @@ public class UserDto {
     @NotEmpty(message = "*Please provide your password")
     private String password;
 
-    @NotEmpty(message = "*Please provide your name")
-    private String name;
+    @NotEmpty(message = "*Please provide your first name")
+    private String firstName;
 
-    @NotEmpty(message = "*Please provide your last name")
+    @NotEmpty(message = "*Please provide your middle name")
+    private String middleName;
+
     private String lastName;
 
-    private boolean active;
+    private String details;
 
-    public int getId() {
+    private boolean enable;
+
+    private boolean accountNonLocked;
+
+    private boolean teacher;
+
+    public UserDto() {
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(final int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,7 +47,7 @@ public class UserDto {
         return email;
     }
 
-    public void setEmail(final String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -44,31 +55,63 @@ public class UserDto {
         return password;
     }
 
-    public void setPassword(final String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(final String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getDetails() {
+        return details;
     }
 
-    public void setActive(final boolean active) {
-        this.active = active;
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(boolean teacher) {
+        this.teacher = teacher;
     }
 }

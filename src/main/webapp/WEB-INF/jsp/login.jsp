@@ -5,6 +5,8 @@
 <html lang="en">
 <head>
     <title>Spring Security Example </title>
+    <%--<spring:url value="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" var="bootstrapCss" />--%>
+    <%--<link rel="stylesheet" type="text/css" href="${bootstrapCss}" />--%>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
     <spring:url value="/css/main.css" var="springCss" />
     <link href="${springCss}" rel="stylesheet" />
