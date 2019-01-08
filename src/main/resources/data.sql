@@ -1,76 +1,64 @@
 INSERT INTO user_roles (id, name) VALUES (1, 'ADMIN');
 INSERT INTO user_roles (id, name) VALUES (2, 'AUTHOR');
---INSERT INTO user_role (id, name) VALUES (3, 'CSR');
---INSERT INTO user_role (id, name) VALUES (4, 'PMG');
 
 -- password - 123123
---INSERT INTO "users" (
---  password, name, last_name, email, enable, role_id)
---VALUES ('$2a$10$mJfq5rmvQR66o1xBN2xMzeptwYaxogOToWzvbVUeEHol.pe/jABia', 'John', 'Doe', 'admin@gmail.com', TRUE, 1);
+INSERT INTO users (email, first_name, middle_name, last_name, password, details, account_non_locked, enable, teacher, user_role_id)
+VALUES ('admin@gmail.com', 'adminko', 'admin', 'adminovich', '$2a$10$mJfq5rmvQR66o1xBN2xMzeptwYaxogOToWzvbVUeEHol.pe/jABia', 'some additional information', true, true, true, 1);
+
+INSERT INTO users (email, first_name, middle_name, last_name, password, details, account_non_locked, enable, teacher, user_role_id)
+VALUES ('yarusprog@gmail.com', 'musiienko', 'yaroslav', 'romanovich', '$2a$10$mJfq5rmvQR66o1xBN2xMzeptwYaxogOToWzvbVUeEHol.pe/jABia', 'some additional information', true, true, true, 2);
+
+commit;
+
+INSERT INTO public.conference(name) VALUES ('Політ');
+INSERT INTO public.conference(name) VALUES ('Конференція ІПЗ');
+commit;
+
+INSERT INTO public.subject(name) VALUES ('Дизайн');
+INSERT INTO public.subject(name) VALUES ('Методології розробки ПЗ');
+INSERT INTO public.subject(name) VALUES ('Доменна інженерія');
+INSERT INTO public.subject(name) VALUES ('Бази даних');
+
+INSERT INTO public.subject(name) VALUES ('Авіація');
+INSERT INTO public.subject(name) VALUES ('Навігаційні системи');
+INSERT INTO public.subject(name) VALUES ('Автоматизація підготовки пілотів');
+
+commit;
+
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (1, 2);
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (2, 2);
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (3, 2);
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (4, 2);
+
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (5, 1);
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (6, 1);
+INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (7, 1);
+
+commit;
 
 
+INSERT INTO article(title, text, update_date, conference_id)
+VALUES ('Тестова стаття', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статті',
+        '1994-10-10', 2);
 
---INSERT INTO user_roles(name) VALUES ('ADMIN');
---INSERT INTO user_roles(name) VALUES ('AUTHOR');
---INSERT INTO user_roles(name) VALUES ('USER');
---
---commit;
---
---INSERT INTO users(login, password, first_name, middle_name, last_name, phone, email, user_role_id)
---	VALUES ('yarus', '1111', 'Musiienko', 'Yaroslav', 'Romanovich', '0933742', 'yarusprog@mail.ru', '1');
---INSERT INTO users(login, password, first_name, middle_name, last_name, phone, email, user_role_id)
---	VALUES ('max', '1111', 'Max', 'Ivan', 'Ivanovich', '0933742', 'max@mail.ru', '1');
---INSERT INTO users(login, password, first_name, middle_name, last_name, phone, email, user_role_id)
---	VALUES ('admin', 'admin', 'Max', 'Ivan', 'Ivanovich', '0933742', 'max@mail.ru', '1');
---INSERT INTO users(login, password, first_name, middle_name, last_name, phone, email, user_role_id)
---	VALUES ('user', 'user', 'Max', 'Ivan', 'Ivanovich', '0933742', 'max@mail.ru', '3');
---commit;
---
---INSERT INTO public.conference(name) VALUES ('Політ');
---INSERT INTO public.conference(name) VALUES ('Конференція ІПЗ');
---commit;
---
---INSERT INTO public.subject(name) VALUES ('Дизайн');
---INSERT INTO public.subject(name) VALUES ('Методології розробки ПЗ');
---INSERT INTO public.subject(name) VALUES ('Доменна інженерія');
---INSERT INTO public.subject(name) VALUES ('Бази даних');
---
---INSERT INTO public.subject(name) VALUES ('Авіація');
---INSERT INTO public.subject(name) VALUES ('Навігаційні системи');
---INSERT INTO public.subject(name) VALUES ('Автоматизація підготовки пілотів');
---
---commit;
---
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (1, 2);
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (2, 2);
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (3, 2);
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (4, 2);
---
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (5, 1);
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (6, 1);
---INSERT INTO public.conference_subjects(subject_id, conference_id) VALUES (7, 1);
---
---commit;
---
---
---INSERT INTO article(title, text, date, conference_id, subject_id)
---VALUES ('Тестова стаття', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статті',
---        '1994-10-10', 2, 4);
---
---INSERT INTO article(title, text, date, conference_id, subject_id)
---VALUES ('Тестова стаття2', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статті',
---        '1994-10-10', 2, 3);
---
---INSERT INTO article(title, text, date, conference_id, subject_id)
---VALUES ('Тестова стаття3', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
---        Текст тестової статтіТекст тестової статтіТекст тестової статті',
---        '1994-10-10', 2, 2);
---
+INSERT INTO article(title, text, update_date, conference_id)
+VALUES ('Тестова стаття2', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статті',
+        '1994-10-10', 2);
+
+INSERT INTO article(title, text, update_date, conference_id)
+VALUES ('Тестова стаття3', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
+        Текст тестової статтіТекст тестової статтіТекст тестової статті',
+        '1994-10-10', 2);
+
+INSERT INTO articles_subjects(article_id, subject_id) VALUES (1, 4);
+INSERT INTO articles_subjects(article_id, subject_id) VALUES (2, 4);
+INSERT INTO articles_subjects(article_id, subject_id) VALUES (3, 4);
+
 --INSERT INTO article(title, text, date, conference_id, subject_id)
 --VALUES ('Тестова стаття', 'Текст тестової статті Текст тестової статті Текст тестової статті Текст тестової статті
 --        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
@@ -501,11 +489,11 @@ INSERT INTO user_roles (id, name) VALUES (2, 'AUTHOR');
 --        Текст тестової статтіТекст тестової статтіТекст тестової статтіТекст тестової статті Текст тестової статті Текст тестової статті
 --        Текст тестової статтіТекст тестової статтіТекст тестової статті',
 --        '1994-10-10', 2, 2);
---
---
---INSERT INTO public.user_articles(article_id, user_id) VALUES (1, 1);
---INSERT INTO public.user_articles(article_id, user_id) VALUES (2, 1);
---INSERT INTO public.user_articles(article_id, user_id) VALUES (3, 1);
+
+
+INSERT INTO public.user_articles(article_id, user_id) VALUES (1, 1);
+INSERT INTO public.user_articles(article_id, user_id) VALUES (2, 1);
+INSERT INTO public.user_articles(article_id, user_id) VALUES (3, 2);
 --INSERT INTO public.user_articles(article_id, user_id) VALUES (4, 1);
 --INSERT INTO public.user_articles(article_id, user_id) VALUES (5, 1);
 --
@@ -514,5 +502,5 @@ INSERT INTO user_roles (id, name) VALUES (2, 'AUTHOR');
 --INSERT INTO public.user_articles(article_id, user_id) VALUES (8, 2);
 --INSERT INTO public.user_articles(article_id, user_id) VALUES (9, 2);
 --INSERT INTO public.user_articles(article_id, user_id) VALUES (10, 2);
---
---commit;
+
+commit;

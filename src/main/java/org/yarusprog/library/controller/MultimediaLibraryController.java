@@ -3,6 +3,7 @@ package org.yarusprog.library.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.yarusprog.library.dto.UserDto;
+import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.facade.UserFacade;
 import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.repository.UserRoleRepository;
@@ -25,6 +27,9 @@ public class MultimediaLibraryController {
     private UserFacade userFacade;
 
     @Autowired
+    private ArticleFacade articleFacade;
+
+    @Autowired
     private UserRoleRepository userRoleRepository;
 
     @Value("${welcome.message}")
@@ -35,7 +40,10 @@ public class MultimediaLibraryController {
         model.addAttribute(model.addAttribute("message",
                 StringUtils.isEmpty(name) ? message : name)
         );
-        return "welcome";
+
+        model.addAttribute("articles", articleFacade.findAll());
+
+        return "index";
     }
 
 
@@ -49,14 +57,17 @@ public class MultimediaLibraryController {
         return "/home";
     }
 
-    @Secured("ADMIN")
+//    @Secured("ADMIN")
 //    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/admin")
     public String admin() {
         return "/admin";
     }
 
-    @Secured({"ADMIN","AUTHOR"})
+//    @Secured({"ADMIN","AUTHOR"})
+//    @PreAuthorize("hasAnyRole('ADMIN', 'AUTHOR')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'AUTHOR')")
     @GetMapping("/user")
     public String user() {
         return "/user";

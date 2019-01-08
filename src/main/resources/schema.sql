@@ -81,8 +81,7 @@ CREATE TABLE article
     title           VARCHAR(100)    NOT NULL,
     text            VARCHAR(2000),
     update_date     TIMESTAMP(0)    NOT NULL,
-    conference_id   INTEGER         NOT NULL,
-    subject_id      INTEGER         NOT NULL
+    conference_id   INTEGER         NOT NULL
 );
 
 ALTER TABLE article

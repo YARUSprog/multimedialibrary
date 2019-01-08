@@ -1,30 +1,24 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <div th:fragment="header-css">
-        <!-- this is header-css -->
-        <link rel="stylesheet" type="text/css"
-              href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java"%>
+<nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">
+        <%--<img alt="logo" id="top-image" src="/images/NauLogo300.png" height="46" width="56"/>--%>
+        <%--height="56" width="56"--%>
+        <%--Scientific library--%>
+        Наукова бібліотека
+    </a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Головна</a></li>
+            <li><a href="#">Контакти</a></li>
+            <li><a href="#">Кабінет</a></li>
+            <li><a href="#">Увійти</a></li>
+        </ul>
 
-        <link rel="stylesheet" href="../../css/main.css" />
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Головна</a></li>
+            <li><a href="#">Контакти</a></li>
+            <li><a href="#">Кабінет</a></li>
+            <li><a href="#">Увійти</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
-</head>
-<body>
-<div>
-    <!-- this is header -->
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="/">Spring Boot</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-
-</body>
-</html>
+</nav>
