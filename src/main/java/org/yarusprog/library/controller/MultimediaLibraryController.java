@@ -28,9 +28,6 @@ public class MultimediaLibraryController {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @Value("${welcome.message}")
-    private String message = "Hello World";
-
     @GetMapping({"/", "/index"})
     public String getIndex(Model model) {
         model.addAttribute("articles", articleFacade.findAll());

@@ -21,7 +21,7 @@
             <div class="card-content">
                 <form action="/login" class="row" method="post" id="auth-form">
                     <div class='input-field col s12'>
-                        <input class='validate' type='email' name='email' id='email'/>
+                        <input class='validate' type='email' name="username" id="username"/>
                         <label for='email'>Введіть ваш імейл</label>
                     </div>
                     <div class='input-field col s12'>
@@ -129,14 +129,13 @@
 <script src="/js/init.js"></script>
 <script>
     $(document).ready(function(){
-        // M.toast({html: "Test toast message", timeRemaining: 10000});
-        <c:if test="${not empty error}">
-        M.toast({html: "${error}", timeRemaining: 10000});
-        <%--Materialize.toast("${error}", 10000, 'rounded');--%>
+        <c:if test="${error eq true}">
+            //Invalid username or password.
+            M.toast({html: "Не вірний логін чи пароль.", timeRemaining: 10000});
         </c:if>
-        <c:if test="${not empty msg}">
-        M.toast({html: "${logout}", timeRemaining: 10000});
-        <%--Materialize.toast("${msg}", 10000, 'rounded');--%>
+        <c:if test="${logout eq true}">
+            //You've been logged out successfully.
+            M.toast({html: "Ви успішно вийшли.", timeRemaining: 10000});
         </c:if>
 
         // $('#auth-form').submit(function() {
