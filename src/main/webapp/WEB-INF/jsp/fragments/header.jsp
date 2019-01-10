@@ -7,17 +7,17 @@
         Наукова бібліотека
     </a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Головна</a></li>
-            <li><a href="#">Контакти</a></li>
-            <li><a href="#">Кабінет</a></li>
-            <li><a href="#">Увійти</a></li>
+            <li><a href="/index">Головна</a></li>
+            <li><a href="/contacts">Контакти</a></li>
+            <li><a href="/admin">Кабінет</a></li>
+            <li><a href="/login">Увійти</a></li>
         </ul>
 
         <ul id="nav-mobile" class="sidenav">
-            <li><a href="#">Головна</a></li>
-            <li><a href="#">Контакти</a></li>
-            <li><a href="#">Кабінет</a></li>
-            <li><a href="#">Увійти</a></li>
+            <li><a href="/index">Головна</a></li>
+            <li><a href="/contacts">Контакти</a></li>
+            <li><a href="/admin">Кабінет</a></li>
+            <li><a href="/login">Увійти</a></li>
         </ul>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>

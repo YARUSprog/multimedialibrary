@@ -6,12 +6,18 @@
 <html lang="en">
 <head>
     <title>Spring Security Example </title>
-    <%--<spring:url value="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" var="bootstrapCss" />--%>
-    <%--<link rel="stylesheet" type="text/css" href="${bootstrapCss}" />--%>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <spring:url value="/css/main.css" var="springCss" />
-    <link href="${springCss}" rel="stylesheet" />
+    <%--&lt;%&ndash;<spring:url value="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" var="bootstrapCss" />&ndash;%&gt;--%>
+    <%--&lt;%&ndash;<link rel="stylesheet" type="text/css" href="${bootstrapCss}" />&ndash;%&gt;--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
+          <%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+    <%--<spring:url value="/css/main.css" var="springCss" />--%>
+    <%--<link href="${springCss}" rel="stylesheet" />--%>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
 </head>
 <body>
 
@@ -61,5 +67,11 @@
     </div>
 
 </div>
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/js/materialize.js"></script>
+<script src="/js/init.js"></script>
+
 </body>
 </html>

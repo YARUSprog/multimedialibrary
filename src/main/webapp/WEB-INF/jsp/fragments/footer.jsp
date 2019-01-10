@@ -12,10 +12,10 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Навігація</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Головна</a></li>
-                    <li><a class="white-text" href="#!">Контакти</a></li>
-                    <li><a class="white-text" href="#!">Кабінет</a></li>
-                    <li><a class="white-text" href="#!">Конференції</a></li>
+                    <li><a class="white-text" href="/index">Головна</a></li>
+                    <li><a class="white-text" href="/contacts">Контакти</a></li>
+                    <li><a class="white-text" href="/admin">Кабінет</a></li>
+                    <li><a class="white-text" href="/login">Конференції</a></li>
                 </ul>
             </div>
             <%--<div class="col l3 s12">--%>
