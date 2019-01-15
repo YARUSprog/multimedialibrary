@@ -1,32 +1,45 @@
 <!DOCTYPE HTML>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
-    <%--<spring:url value="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" var="bootstrapCss" />--%>
-    <%--<link rel="stylesheet" type="text/css" href="${bootstrapCss}" />--%>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <spring:url value="/css/main.css" var="springCss" />
-    <link href="${springCss}" rel="stylesheet" />
+    <title>Кабінет</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
 
 <div class="container">
 
-    <div class="starter-template">
-        <h1>Admin page (Spring Security protected)</h1>
-
-        <h1>Hello ${httpServletRequest.remoteUser}!</h1>
-        <form action="/logout" method="post">
-            <input type="submit" value="Sign Out"/>
+    <div class="row">
+        <form action="/activateUser" method="post" id="auth-form">
+            <div class='input-field col s12'>
+                <input type="hidden" value="${user.email}"/>
+                <p class="col s4">
+                    ${user.email}
+                </p>
+                <p class="col s4">
+                    ${user.firstName}
+                </p>
+                <p class="col s4">
+                    ${user.middleName}
+                </p>
+                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect orange darken-3'>
+                    Активувати
+                </button>
+            </div>
         </form>
-
     </div>
-
 </div>
-<!-- /.container -->
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="/js/materialize.js"></script>
+<script src="/js/init.js"></script>
 
 </body>
 </html>

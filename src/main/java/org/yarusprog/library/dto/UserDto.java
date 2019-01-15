@@ -3,32 +3,37 @@ package org.yarusprog.library.dto;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.yarusprog.library.dto.validatation.PasswordConfirm;
 
+@PasswordConfirm(
+        password = "password",
+        passwordConfirm = "confirmPassword",
+        message = "Password and password confirm must be equals")
 public class UserDto {
 
     private long id;
 
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+    @Email(message = "Please provide a valid Email")
+    @NotEmpty(message = "Please provide an email")
     private String email;
 
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+    @Length(min = 5, message = "Your password must have at least 5 characters")
+    @NotEmpty(message = "Please provide your password")
     private String password;
 
-    @NotEmpty(message = "*Please provide your first name")
+    @NotEmpty(message = "Please provide your password confirm")
+    private String confirmPassword;
+
+    @NotEmpty(message = "Please provide your first name")
     private String firstName;
 
-    @NotEmpty(message = "*Please provide your middle name")
+    @NotEmpty(message = "Please provide your middle name")
     private String middleName;
 
     private String lastName;
 
+    @Length(max = 500, message = "Details can't be more than 500 characters")
     private String details;
-
-    private boolean enable;
-
-    private boolean accountNonLocked;
 
     private boolean teacher;
 
@@ -57,6 +62,14 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {
@@ -89,22 +102,6 @@ public class UserDto {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
     }
 
     public boolean isTeacher() {

@@ -15,35 +15,42 @@
     <div class="col s12 m4 offset-m4">
         <div class="card">
             <div class="card-action center-align">
-                <h2 class="teal-text darken-3-text">Наукова бібліотека</h2>
-                <h5 class="teal-text lighten-5">Будь-ласка, увійдіть в свій акаунт</h5>
+                <h2 class="orange-text darken-3-text">Наукова бібліотека</h2>
+                <h5 class="orange-text lighten-5">Будь-ласка, увійдіть в свій акаунт</h5>
             </div>
             <div class="card-content">
                 <form action="/login" class="row" method="post" id="auth-form">
                     <div class='input-field col s12'>
-                        <input class='validate' type='email' name="username" id="username"/>
-                        <label for='email'>Введіть ваш імейл</label>
+                        <input class='validate' type='email' name="username" id="username" required="true"/>
+                        <label for='username'>Введіть ваш імейл</label>
                     </div>
                     <div class='input-field col s12'>
-                        <input class='validate' type='password' name='password' id='password'/>
+                        <input class='validate' type='password' name='password' id='password' required="true"/>
                         <label for='password'>Введіть ваш пароль</label>
                     </div>
-                    <div class='col s12'>
-                        <label>
-                            <input type='checkbox' name='remember-me' id='remember'/>
-                            <span>Запам'ятати мене</span>
-                        </label>
-                    </div>
+                    <%--<div class='col s12'>--%>
+                        <%--<label>--%>
+                            <%--<input type='checkbox' name='remember-me' id='remember'/>--%>
+                            <%--<span>Запам'ятати мене</span>--%>
+                        <%--</label>--%>
+                    <%--</div>--%>
                     <div class='col s12'>
                         <br/>
-                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect teal darken-3'>
+                        <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect orange darken-3'>
                             Увійти
                         </button>
                     </div>
+                    <%--<div class="col s12">--%>
+                        <%--<label class="label-forgot center-align">--%>
+                            <%--<a class='modal-trigger waves-effect waves-light blue-grey-text lighten-2'--%>
+                               <%--href='#modal1'><b>Забули пароль?</b></a>--%>
+                        <%--</label>--%>
+                    <%--</div>--%>
+
                     <div class="col s12">
                         <label class="label-forgot center-align">
                             <a class='modal-trigger waves-effect waves-light blue-grey-text lighten-2'
-                               href='#modal1'><b>Забули пароль?</b></a>
+                               href='/registration'><b>Реєстрація</b></a>
                         </label>
                     </div>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

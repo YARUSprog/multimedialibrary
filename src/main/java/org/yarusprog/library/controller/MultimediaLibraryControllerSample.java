@@ -134,8 +134,6 @@ public class MultimediaLibraryControllerSample {
         userDto.setFirstName("musiienko");
         userDto.setLastName("yaroslav");
         userDto.setMiddleName("romanovich");
-        userDto.setAccountNonLocked(true);
-        userDto.setEnable(true);
         userFacade.saveUser(userDto);
         return "login";
     }

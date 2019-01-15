@@ -7,11 +7,17 @@ import org.yarusprog.library.facade.UserFacade;
 import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.service.UserService;
 
+import java.util.Objects;
+
 @Component
 public class UserFacadeImpl implements UserFacade {
 
     @Autowired
     private UserService userService;
+
+    public UserDto findByEmail(final String email) {
+        return convertModelToDto(userService.findUserByEmail(email));
+    }
 
     @Override
     public void saveUser(final UserDto user) {
@@ -24,17 +30,35 @@ public class UserFacadeImpl implements UserFacade {
     }
 
 
-    private UserModel convertDtoToModel(final UserDto userDto){
-        UserModel user = new UserModel();
-        user.setId(userDto.getId());
-        user.setEmail(userDto.getEmail());
-        user.setFirstName(userDto.getFirstName());
-        user.setMiddleName(userDto.getMiddleName());
-        user.setLastName(userDto.getLastName());
-        user.setPassword(userDto.getPassword());
-        user.setAccountNonLocked(userDto.isAccountNonLocked());
-        user.setEnable(userDto.isEnable());
-        user.setTeacher(userDto.isTeacher());
-        return user;
+    private UserModel convertDtoToModel(final UserDto source) {
+        if (Objects.nonNull(source)) {
+            UserModel user = new UserModel();
+            user.setId(source.getId());
+            user.setEmail(source.getEmail());
+            user.setPassword(source.getPassword());
+            user.setFirstName(source.getFirstName());
+            user.setMiddleName(source.getMiddleName());
+            user.setLastName(source.getLastName());
+            user.setDetails(source.getDetails());
+            user.setTeacher(source.isTeacher());
+            return user;
+        }
+        return null;
+    }
+
+    private UserDto convertModelToDto(final UserModel source) {
+        if (Objects.nonNull(source)) {
+            UserDto user = new UserDto();
+            user.setId(source.getId());
+            user.setEmail(source.getEmail());
+            user.setPassword(source.getPassword());
+            user.setFirstName(source.getFirstName());
+            user.setMiddleName(source.getMiddleName());
+            user.setLastName(source.getLastName());
+            user.setDetails(source.getDetails());
+            user.setTeacher(source.isTeacher());
+            return user;
+        }
+        return null;
     }
 }

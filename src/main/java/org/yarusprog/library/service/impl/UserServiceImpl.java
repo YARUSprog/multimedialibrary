@@ -23,6 +23,8 @@ import java.util.Arrays;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+    private static String ROLE_AUTHOR = "AUTHOR";
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -42,8 +44,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void saveUser(UserModel user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setEnable(true);
-        UserRoleModel userRole = userRoleRepository.findByName("ADMIN");
+        user.setEnable(false);
+        UserRoleModel userRole = userRoleRepository.findByName(ROLE_AUTHOR);
         user.setUserRole(userRole);
 
         userRepository.save(user);

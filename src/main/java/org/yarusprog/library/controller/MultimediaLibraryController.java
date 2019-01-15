@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.yarusprog.library.facade.UserFacade;
 import org.yarusprog.library.repository.UserRoleRepository;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Controller
 public class MultimediaLibraryController {
@@ -63,15 +65,22 @@ public class MultimediaLibraryController {
     @PostMapping("/registration")
     public String registration(@Valid @ModelAttribute("user") UserDto user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            bindingResult.getFieldErrors().forEach(fieldError -> {
-                model.addAttribute(fieldError.getField() + "Error", fieldError.getDefaultMessage());
-            });
+//            bindingResult.getFieldErrors().forEach(fieldError -> {
+//                model.addAttribute(fieldError.getField() + "Error", fieldError.getDefaultMessage());
+//            });
 
+            ObjectError error = bindingResult.getAllErrors().stream().findFirst().get();
+            model.addAttribute("validationError", error.getDefaultMessage());
+
+            return "registration";
+        }
+        if (Objects.nonNull(userFacade.findByEmail(user.getEmail()))) {
+            model.addAttribute("validationError", "User with this email already registered");
             return "registration";
         }
 
         userFacade.saveUser(user);
-        userFacade.autoLogin(user);
+//        userFacade.autoLogin(user);
 
         return "redirect:/index";
     }
