@@ -15,25 +15,31 @@
 
 <div class="container">
 
-    <div class="row">
-        <form action="/activateUser" method="post" id="auth-form">
-            <div class='input-field col s12'>
-                <input type="hidden" value="${user.email}"/>
-                <p class="col s4">
-                    ${user.email}
-                </p>
-                <p class="col s4">
-                    ${user.firstName}
-                </p>
-                <p class="col s4">
-                    ${user.middleName}
-                </p>
-                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect orange darken-3'>
-                    Активувати
-                </button>
-            </div>
-        </form>
-    </div>
+    <c:forEach var="newUser" items="${newUsers}">
+        <div class="row">
+            <%--<form action="/activateUser/${newUser.email}" method="PUT">--%>
+                <div class='input-field col s12'>
+                    <%--<input type="hidden" value="${newUser.email}" name="email"/>--%>
+                    <p class="col s3">
+                            ${newUser.email}
+                    </p>
+                    <p class="col s3">
+                            ${newUser.firstName}
+                    </p>
+                    <p class="col s3">
+                            ${newUser.middleName}
+                    </p>
+                    <button type='button' name='btn_login' class='col s3 btn waves-effect'
+                            onclick="activateUser('/activateUser/${newUser.id}')">
+                        Активувати
+                    </button>
+
+                </div>
+            <%--</form>--%>
+        </div>
+    </c:forEach>
+
+
 </div>
 
 <!--  Scripts-->
@@ -41,5 +47,17 @@
 <script src="/js/materialize.js"></script>
 <script src="/js/init.js"></script>
 
+<script type="text/javascript">
+    function activateUser(activateUrl) {
+        $.ajax({
+            type: 'PUT',
+            url: activateUrl,
+            data: null,
+            success: function() {
+                window.location.reload();
+            }
+        });
+    }
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package org.yarusprog.library.facade.impl;
 
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yarusprog.library.dto.UserDto;
@@ -8,6 +9,8 @@ import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.service.UserService;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class UserFacadeImpl implements UserFacade {
@@ -16,16 +19,38 @@ public class UserFacadeImpl implements UserFacade {
     private UserService userService;
 
     public UserDto findByEmail(final String email) {
+        Preconditions.checkNotNull(email);
         return convertModelToDto(userService.findUserByEmail(email));
+    }
+
+    public Set<UserDto> findNewUsers() {
+        return userService.findNewUsers().stream().map(userModel -> convertModelToDto(userModel))
+                .collect(Collectors.toSet());
+    }
+
+    public void activateUser(long id) {
+        UserModel user = userService.findUserById(id);
+        if (Objects.nonNull(user)) {
+            user.setEnable(true);
+            userService.saveUser(user);
+        }
+    }
+
+    @Override
+    public void registerUser(final UserDto user) {
+        Preconditions.checkNotNull(user);
+        userService.registerUser(convertDtoToModel(user));
     }
 
     @Override
     public void saveUser(final UserDto user) {
+        Preconditions.checkNotNull(user);
         userService.saveUser(convertDtoToModel(user));
     }
 
     @Override
     public void autoLogin(final UserDto user) {
+        Preconditions.checkNotNull(user);
         userService.autoLogin(user.getEmail(), user.getPassword());
     }
 

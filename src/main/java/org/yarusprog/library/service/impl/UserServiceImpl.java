@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.model.UserRoleModel;
-import org.yarusprog.library.repository.UserRoleRepository;
 import org.yarusprog.library.repository.UserRepository;
+import org.yarusprog.library.repository.UserRoleRepository;
 import org.yarusprog.library.service.UserService;
 
 import java.util.Arrays;
+import java.util.Set;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -42,12 +43,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(UserModel user) {
+    public UserModel findUserById(final long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
+    public Set<UserModel> findNewUsers() {
+        return userRepository.findAllByEnableIsFalse();
+    }
+
+    @Override
+    public void registerUser(UserModel user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnable(false);
         UserRoleModel userRole = userRoleRepository.findByName(ROLE_AUTHOR);
         user.setUserRole(userRole);
+        saveUser(user);
+    }
 
+    @Override
+    public void saveUser(UserModel user) {
         userRepository.save(user);
     }
 
