@@ -9,6 +9,7 @@ import org.yarusprog.library.model.ArticleModel;
 import org.yarusprog.library.service.ArticleService;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,7 +25,19 @@ public class ArticleFacadeImpl implements ArticleFacade {
         return articleService.findAll().stream().map(this::convertModelToDto).collect(Collectors.toList());
     }
 
-    private ArticleDto convertModelToDto(final ArticleModel articleModel){
+    @Override
+    public List<Date> findAllDates() {
+        return articleService.findAllDates();
+    }
+
+    @Override
+    public List<ArticleDto> findFilteredArticles(final String searchText, final Integer searchAuthor, final Integer searchConf,
+                                                 final Integer searchSubject, final Integer searchYear) {
+        return articleService.findFilteringArticle(searchText, searchAuthor, searchConf, searchSubject, searchYear).stream()
+                .map(this::convertModelToDto).collect(Collectors.toList());
+    }
+
+    private ArticleDto convertModelToDto(final ArticleModel articleModel) {
         ArticleDto articleDto = new ArticleDto();
         articleDto.setId(articleModel.getId());
         articleDto.setText(articleModel.getText());
@@ -35,7 +48,7 @@ public class ArticleFacadeImpl implements ArticleFacade {
         articleDto.setUsers(
                 CollectionUtils.isEmpty(articleModel.getUsers()) ? Collections.EMPTY_LIST
                         : articleModel.getUsers().stream().map(userModel -> userModel.getFirstName()
-                                + userModel.getLastName()).collect(Collectors.toList()));
+                        + userModel.getLastName()).collect(Collectors.toList()));
         articleDto.setSubjects(CollectionUtils.isEmpty(articleModel.getSubjects()) ? Collections.EMPTY_LIST
                 : articleModel.getSubjects().stream()
                 .map(subjectModel -> subjectModel.getName()).collect(Collectors.toList()));

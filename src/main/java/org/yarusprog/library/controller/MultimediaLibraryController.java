@@ -1,7 +1,6 @@
 package org.yarusprog.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +9,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.yarusprog.library.dto.UserDto;
 import org.yarusprog.library.facade.ArticleFacade;
+import org.yarusprog.library.facade.ConferenceFacade;
+import org.yarusprog.library.facade.SubjectFacade;
 import org.yarusprog.library.facade.UserFacade;
-import org.yarusprog.library.model.UserModel;
-import org.yarusprog.library.repository.UserRoleRepository;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -27,11 +26,31 @@ public class MultimediaLibraryController {
     private ArticleFacade articleFacade;
 
     @Autowired
-    private UserRoleRepository userRoleRepository;
+    private SubjectFacade subjectFacade;
+
+    @Autowired
+    private ConferenceFacade conferenceFacade;
 
     @GetMapping({"/", "/index"})
-    public String getIndex(Model model) {
-        model.addAttribute("articles", articleFacade.findAll());
+    public String getIndex(@RequestParam(value = "searchText", required = false) final String searchText,
+                           @RequestParam(value = "searchAuthor", required = false) final Integer searchAuthor,
+                           @RequestParam(value = "searchConf", required = false) final Integer searchConf,
+                           @RequestParam(value = "searchSubject", required = false) final Integer searchSubject,
+                           @RequestParam(value = "searchYear", required = false) final Integer searchYear,
+                           Model model) {
+        model.addAttribute("searchText", searchText);
+        model.addAttribute("searchAuthor", searchAuthor);
+        model.addAttribute("searchConf", searchConf);
+        model.addAttribute("searchSubject", searchSubject);
+        model.addAttribute("searchYear", searchYear);
+
+        model.addAttribute("allAuthors", userFacade.findAllAuthors());
+        model.addAttribute("allConferences", conferenceFacade.findAll());
+        model.addAttribute("allSubjects", subjectFacade.findAll());
+        model.addAttribute("allDates", articleFacade.findAllDates());
+
+        model.addAttribute("articles",
+                articleFacade.findFilteredArticles(searchText, searchAuthor, searchConf, searchSubject, searchYear));
         return "index";
     }
 

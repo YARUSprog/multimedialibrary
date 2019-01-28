@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.yarusprog.library.vo.UserNamesAndId;
 import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.model.UserRoleModel;
 import org.yarusprog.library.repository.UserRepository;
@@ -19,6 +20,7 @@ import org.yarusprog.library.repository.UserRoleRepository;
 import org.yarusprog.library.service.UserService;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @Service("userService")
@@ -45,6 +47,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel findUserById(final long id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public List<UserNamesAndId> findAllAuthors() {
+        return userRepository.findAllByUserRoleOrderByFirstNameAsc(userRoleRepository.findByName(ROLE_AUTHOR));
     }
 
     @Override
