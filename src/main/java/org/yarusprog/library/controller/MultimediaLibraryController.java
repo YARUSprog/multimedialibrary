@@ -1,17 +1,20 @@
 package org.yarusprog.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.yarusprog.library.dto.PageArticlesDto;
 import org.yarusprog.library.dto.UserDto;
 import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.facade.ConferenceFacade;
 import org.yarusprog.library.facade.SubjectFacade;
 import org.yarusprog.library.facade.UserFacade;
+import org.yarusprog.library.model.ArticleModel;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -32,11 +35,12 @@ public class MultimediaLibraryController {
     private ConferenceFacade conferenceFacade;
 
     @GetMapping({"/", "/index"})
-    public String getIndex(@RequestParam(value = "searchText", required = false) final String searchText,
-                           @RequestParam(value = "searchAuthor", required = false) final Integer searchAuthor,
-                           @RequestParam(value = "searchConf", required = false) final Integer searchConf,
-                           @RequestParam(value = "searchSubject", required = false) final Integer searchSubject,
-                           @RequestParam(value = "searchYear", required = false) final Integer searchYear,
+    public String getIndex(@RequestParam(value = "searchText", required = false, defaultValue = "") final String searchText,
+                           @RequestParam(value = "searchAuthor", required = false, defaultValue = "0") final Integer searchAuthor,
+                           @RequestParam(value = "searchConf", required = false, defaultValue = "0") final Integer searchConf,
+                           @RequestParam(value = "searchSubject", required = false, defaultValue = "0") final Integer searchSubject,
+                           @RequestParam(value = "searchYear", required = false, defaultValue = "0") final Integer searchYear,
+                           @RequestParam(value = "pageNumber", required = false, defaultValue = "0") final Integer pageNumber,
                            Model model) {
         model.addAttribute("searchText", searchText);
         model.addAttribute("searchAuthor", searchAuthor);
@@ -49,8 +53,16 @@ public class MultimediaLibraryController {
         model.addAttribute("allSubjects", subjectFacade.findAll());
         model.addAttribute("allDates", articleFacade.findAllDates());
 
-        model.addAttribute("articles",
-                articleFacade.findFilteredArticles(searchText, searchAuthor, searchConf, searchSubject, searchYear));
+        PageArticlesDto articlesPage = articleFacade.findFilteredArticles(searchText, searchAuthor, searchConf,
+                searchSubject, searchYear, pageNumber);
+        model.addAttribute("articles", articlesPage.getContent());
+        model.addAttribute("currentPage", articlesPage.getCurrentPage());
+        model.addAttribute("countOfPages", articlesPage.getTotalPages());
+        model.addAttribute("startNumberOfPage",
+                articleFacade.getStartGroupPagination(articlesPage.getCurrentPage(), articlesPage.getTotalPages()));
+        model.addAttribute("endNumberOfPage",
+                articleFacade.getEndGroupPagination(articlesPage.getCurrentPage(), articlesPage.getTotalPages()));
+
         return "index";
     }
 

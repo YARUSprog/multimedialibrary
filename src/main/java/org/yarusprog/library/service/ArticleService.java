@@ -1,5 +1,6 @@
 package org.yarusprog.library.service;
 
+import org.springframework.data.domain.Page;
 import org.yarusprog.library.model.ArticleModel;
 
 import java.util.Date;
@@ -8,9 +9,15 @@ import java.util.List;
 public interface ArticleService {
     List<ArticleModel> findAll();
 
-    List<ArticleModel> findFilteringArticle(String title, Integer searchAuthor,
+    Page<ArticleModel> findFilteringArticle(String title, Integer searchAuthor,
                                             Integer searchConf, Integer searchSubject,
-                                            Integer searchYear);
+                                            Integer searchYear, Integer pageNumber, Integer pageSize);
 
     List<Date> findAllDates();
+
+    int getStartGroupPagination(Integer groupId, int countGroup);
+
+    int getEndGroupPagination(Integer groupId, int countGroup);
+
+    int validateGroupId(Integer groupId, int countGroup);
 }

@@ -1,5 +1,7 @@
 package org.yarusprog.library.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,9 +27,9 @@ public interface ArticleRepository extends JpaRepository<ArticleModel, Long> {
             "AND (:searchConf IS NULL OR :searchConf=0 OR c.id=:searchConf) " +
             "AND (:searchSubject IS NULL OR :searchSubject=0 OR s.id=:searchSubject) " +
             "AND (:searchYear IS NULL OR :searchYear=0 OR year(a.updateDate)=:searchYear)")
-    List<ArticleModel> findFilteredArticles(@Param("title") final String title,
+    Page<ArticleModel> findFilteredArticles(@Param("title") final String title,
                                             @Param("searchAuthor") final Integer searchAuthor,
                                             @Param("searchConf") final Integer searchConf,
                                             @Param("searchSubject") final Integer searchSubject,
-                                            @Param("searchYear") final Integer searchYear);
+                                            @Param("searchYear") final Integer searchYear, Pageable pageable);
 }

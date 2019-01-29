@@ -148,6 +148,36 @@
             </c:forEach>
         </div>
 
+        <ul class="pagination">
+            <c:if test="${currentPage == startNumberOfPage}" >
+                <li class="disabled"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage-1}"><i class="material-icons">chevron_left</i></a></li>
+            </c:if>
+            <c:if test="${currentPage != startNumberOfPage}" >
+                <li class="waves-effect"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage-1}"><i class="material-icons">chevron_left</i></a></li>
+            </c:if>
+
+            <c:forEach begin="${startNumberOfPage}" end="${endNumberOfPage}" varStatus="i">
+                <c:if test="${currentPage == i.index}" >
+                    <li class="active"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${i.index}">${i.index + 1}</a></li>
+                </c:if>
+                <c:if test="${currentPage != i.index}" >
+                    <li><a class="waves-effect" href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${i.index}">${i.index + 1}</a></li>
+                </c:if>
+            </c:forEach>
+            <%--<li class="active"><a href="#!">1</a></li>--%>
+            <%--<li class="waves-effect"><a href="#!">2</a></li>--%>
+            <%--<li class="waves-effect"><a href="#!">3</a></li>--%>
+            <%--<li class="waves-effect"><a href="#!">4</a></li>--%>
+            <%--<li class="waves-effect"><a href="#!">5</a></li>--%>
+
+            <c:if test="${currentPage == endNumberOfPage}" >
+                <li class="disabled"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage+1}"><i class="material-icons">chevron_right</i></a></li>
+            </c:if>
+            <c:if test="${currentPage != endNumberOfPage}" >
+                <li class="waves-effect"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage+1}"><i class="material-icons">chevron_right</i></a></li>
+            </c:if>
+
+        </ul>
     </div>
     <br><br>
 </div>

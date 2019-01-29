@@ -1,9 +1,14 @@
 package org.yarusprog.library.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.yarusprog.library.dto.ArticleDto;
+import org.yarusprog.library.dto.PageArticlesDto;
 import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.model.ArticleModel;
 import org.yarusprog.library.service.ArticleService;
@@ -16,6 +21,8 @@ import java.util.stream.Collectors;
 
 @Component("articleFacade")
 public class ArticleFacadeImpl implements ArticleFacade {
+
+    private static final Integer PAGE_SIZE = 4;
 
     @Autowired
     private ArticleService articleService;
@@ -31,10 +38,30 @@ public class ArticleFacadeImpl implements ArticleFacade {
     }
 
     @Override
-    public List<ArticleDto> findFilteredArticles(final String searchText, final Integer searchAuthor, final Integer searchConf,
-                                                 final Integer searchSubject, final Integer searchYear) {
-        return articleService.findFilteringArticle(searchText, searchAuthor, searchConf, searchSubject, searchYear).stream()
-                .map(this::convertModelToDto).collect(Collectors.toList());
+    public PageArticlesDto findFilteredArticles(final String searchText, final Integer searchAuthor,
+                                                 final Integer searchConf, final Integer searchSubject,
+                                                 final Integer searchYear, final Integer pageNumber) {
+
+        Page<ArticleModel> articleModels = articleService.findFilteringArticle(searchText, searchAuthor, searchConf,
+                searchSubject, searchYear, pageNumber, PAGE_SIZE);
+        List<ArticleDto> content = articleModels.getContent().stream().map(this::convertModelToDto)
+                .collect(Collectors.toList());
+        return new PageArticlesDto(content, articleModels.getTotalPages(), articleModels.getNumber());
+    }
+
+    @Override
+    public int getStartGroupPagination(Integer groupId, int countGroup) {
+        return articleService.getStartGroupPagination(groupId, countGroup);
+    }
+
+    @Override
+    public int getEndGroupPagination(Integer groupId, int countGroup) {
+        return articleService.getEndGroupPagination(groupId, countGroup);
+    }
+
+    @Override
+    public int validateGroupId(Integer groupId, int countGroup) {
+        return articleService.validateGroupId(groupId, countGroup);
     }
 
     private ArticleDto convertModelToDto(final ArticleModel articleModel) {
