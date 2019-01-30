@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index", "/contacts",
+                .antMatchers("/article/*", "/index", "/contacts",
                         "/", "/home", "/about", "/test", "/registration", "/registrationTemp").permitAll()
                 .antMatchers("/admin", "/activateUser/*").hasAnyAuthority("ADMIN")
                 .antMatchers("/user").hasAnyAuthority("AUTHOR", "ADMIN")

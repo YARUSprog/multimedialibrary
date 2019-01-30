@@ -2,9 +2,6 @@ package org.yarusprog.library.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.yarusprog.library.dto.ArticleDto;
@@ -30,6 +27,11 @@ public class ArticleFacadeImpl implements ArticleFacade {
     @Override
     public List<ArticleDto> findAll() {
         return articleService.findAll().stream().map(this::convertModelToDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public ArticleDto findById(final long id) {
+        return convertModelToDto(articleService.findById(id));
     }
 
     @Override

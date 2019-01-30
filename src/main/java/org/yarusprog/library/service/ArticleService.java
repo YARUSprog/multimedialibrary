@@ -20,4 +20,6 @@ public interface ArticleService {
     int getEndGroupPagination(Integer groupId, int countGroup);
 
     int validateGroupId(Integer groupId, int countGroup);
+
+    ArticleModel findById(final long id);
 }

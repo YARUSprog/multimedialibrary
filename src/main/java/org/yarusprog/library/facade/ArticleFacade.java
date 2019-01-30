@@ -9,6 +9,8 @@ import java.util.List;
 public interface ArticleFacade {
     List<ArticleDto> findAll();
 
+    ArticleDto findById(final long id);
+
     List<Date> findAllDates();
 
     PageArticlesDto findFilteredArticles(String searchText, Integer searchAuthor,

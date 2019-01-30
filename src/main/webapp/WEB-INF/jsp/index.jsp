@@ -29,20 +29,6 @@
 
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
-        <%--<br><br>--%>
-        <%--<h1 class="header center orange-text">--%>
-        <%--Starter Template--%>
-        <%--</h1>--%>
-
-        <%--<div class="row center">--%>
-        <%--<h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>--%>
-        <%--</div>--%>
-        <%--<div class="row center">--%>
-        <%--<a href="http://materializecss.com/getting-started.html" id="download-button"--%>
-        <%--class="btn-large waves-effect waves-light orange">Get Started</a>--%>
-        <%--</div>--%>
-        <%--<br><br>--%>
-
         <div class="section">
             <div class="row">
                 <div class="group-search">
@@ -147,15 +133,13 @@
                 </div>
             </c:forEach>
         </div>
-
-        <ul class="pagination">
+        <ul class="pagination center">
             <c:if test="${currentPage == startNumberOfPage}" >
                 <li class="disabled"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage-1}"><i class="material-icons">chevron_left</i></a></li>
             </c:if>
             <c:if test="${currentPage != startNumberOfPage}" >
                 <li class="waves-effect"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage-1}"><i class="material-icons">chevron_left</i></a></li>
             </c:if>
-
             <c:forEach begin="${startNumberOfPage}" end="${endNumberOfPage}" varStatus="i">
                 <c:if test="${currentPage == i.index}" >
                     <li class="active"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${i.index}">${i.index + 1}</a></li>
@@ -164,19 +148,12 @@
                     <li><a class="waves-effect" href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${i.index}">${i.index + 1}</a></li>
                 </c:if>
             </c:forEach>
-            <%--<li class="active"><a href="#!">1</a></li>--%>
-            <%--<li class="waves-effect"><a href="#!">2</a></li>--%>
-            <%--<li class="waves-effect"><a href="#!">3</a></li>--%>
-            <%--<li class="waves-effect"><a href="#!">4</a></li>--%>
-            <%--<li class="waves-effect"><a href="#!">5</a></li>--%>
-
             <c:if test="${currentPage == endNumberOfPage}" >
                 <li class="disabled"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage+1}"><i class="material-icons">chevron_right</i></a></li>
             </c:if>
             <c:if test="${currentPage != endNumberOfPage}" >
                 <li class="waves-effect"><a href="/index?searchText=${searchText}&searchAuthor=${searchAuthor}&searchConf=${searchConf}&searchSubject=${searchSubject}&searchYear=${searchYear}&pageNumber=${currentPage+1}"><i class="material-icons">chevron_right</i></a></li>
             </c:if>
-
         </ul>
     </div>
     <br><br>

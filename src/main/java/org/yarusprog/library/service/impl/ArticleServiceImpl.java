@@ -25,6 +25,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ArticleModel findById(final long id) {
+        return articleRepository.findOne(id);
+    }
+
+    @Override
     public Page<ArticleModel> findFilteringArticle(final String title, final Integer searchAuthor,
                                                     final Integer searchConf, final Integer searchSubject,
                                                     final Integer searchYear, final Integer pageNumber,

@@ -1,7 +1,6 @@
 package org.yarusprog.library.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.facade.ConferenceFacade;
 import org.yarusprog.library.facade.SubjectFacade;
 import org.yarusprog.library.facade.UserFacade;
-import org.yarusprog.library.model.ArticleModel;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -64,6 +62,12 @@ public class MultimediaLibraryController {
                 articleFacade.getEndGroupPagination(articlesPage.getCurrentPage(), articlesPage.getTotalPages()));
 
         return "index";
+    }
+
+    @GetMapping("/article/{id}")
+    public String getArticle(@PathVariable final long id, Model model) {
+        model.addAttribute("article", articleFacade.findById(id));
+        return "article";
     }
 
     @GetMapping("/contacts")

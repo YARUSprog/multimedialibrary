@@ -79,7 +79,7 @@ CREATE TABLE article
 (
     id              BIGSERIAL       NOT NULL,
     title           VARCHAR(100)    NOT NULL,
-    text            VARCHAR(2000),
+    text            TEXT,
     update_date     TIMESTAMP(0)    NOT NULL,
     conference_id   INTEGER         NOT NULL
 );
@@ -97,6 +97,9 @@ CREATE TABLE conference
 
 ALTER TABLE conference
     ADD CONSTRAINT conference_PK PRIMARY KEY ( id ) ;
+
+ALTER TABLE conference
+  ADD CONSTRAINT conference_UN UNIQUE (name);
 
 CREATE TABLE conference_subjects
 (
@@ -116,6 +119,9 @@ CREATE TABLE subject
 
 ALTER TABLE subject
     ADD CONSTRAINT subject_PK PRIMARY KEY ( id ) ;
+
+ALTER TABLE subject
+  ADD CONSTRAINT subject_UN UNIQUE (name);
 
 CREATE TABLE articles_subjects
 (
