@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserNamesAndId> findAllAuthors() {
-        return userRepository.findAllByUserRoleOrderByFirstNameAsc(userRoleRepository.findByName(ROLE_AUTHOR));
+        return userRepository.findAllByOrderByFirstNameAsc();
     }
 
     @Override

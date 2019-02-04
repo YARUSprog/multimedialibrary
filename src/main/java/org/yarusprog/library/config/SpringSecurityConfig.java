@@ -35,7 +35,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/article/*", "/index", "/contacts",
                         "/", "/home", "/about", "/test", "/registration", "/registrationTemp").permitAll()
-                .antMatchers("/admin", "/activateUser/*").hasAnyAuthority("ADMIN")
+                .antMatchers("/admin", "/activateUser/*", "/notActivatedUsers", "/users", "/createArticle", "/conferences", "/subjects", "/article").hasAnyAuthority("ADMIN")
                 .antMatchers("/user").hasAnyAuthority("AUTHOR", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -63,7 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**",
-                        "/webjars/bootstrap/3.3.7/css/bootstrap.min.css" ,"/js/**", "/images/**");
+                        "/webjars/bootstrap/3.3.7/css/bootstrap.min.css", "/js/**", "/images/**");
     }
 
     @Bean

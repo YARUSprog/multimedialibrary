@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.yarusprog.library.model.ArticleModel;
 import org.yarusprog.library.repository.ArticleRepository;
@@ -34,7 +35,8 @@ public class ArticleServiceImpl implements ArticleService {
                                                     final Integer searchConf, final Integer searchSubject,
                                                     final Integer searchYear, final Integer pageNumber,
                                                     final Integer pageSize) {
-        PageRequest pageRequest = new PageRequest(pageNumber, pageSize);
+        final Sort sort = new Sort(Sort.Direction.ASC, "title");
+        final PageRequest pageRequest = new PageRequest(pageNumber, pageSize, sort);
         final String titleForLike = "%" + (Objects.isNull(title) ? StringUtils.EMPTY : title.toUpperCase()) + "%";
         return articleRepository.findFilteredArticles(titleForLike, searchAuthor, searchConf, searchSubject,
                 searchYear, pageRequest);

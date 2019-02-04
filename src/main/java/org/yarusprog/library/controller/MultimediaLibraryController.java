@@ -75,20 +75,6 @@ public class MultimediaLibraryController {
         return "contacts";
     }
 
-    @GetMapping("/admin")
-    public String getAdmin(Model model) {
-        model.addAttribute("newUsers", userFacade.findNewUsers());
-        userFacade.findNewUsers();
-        return "admin";
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/activateUser/{id}", method = RequestMethod.PUT)
-    public void activateUser(@PathVariable final long id) {
-        userFacade.activateUser(id);
-//        return "redirect:/admin";
-    }
-
     @GetMapping("/login")
     public String login(
             @RequestParam(defaultValue = "false") boolean error, @RequestParam(defaultValue = "false") boolean logout,

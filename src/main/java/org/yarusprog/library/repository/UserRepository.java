@@ -15,4 +15,6 @@ public interface  UserRepository extends JpaRepository<UserModel, Long> {
     Set<UserModel> findAllByEnableIsFalse();
 
     List<UserNamesAndId> findAllByUserRoleOrderByFirstNameAsc(UserRoleModel role);
+
+    List<UserNamesAndId> findAllByOrderByFirstNameAsc();
 }
