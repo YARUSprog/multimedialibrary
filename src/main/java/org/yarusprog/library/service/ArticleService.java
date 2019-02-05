@@ -22,4 +22,6 @@ public interface ArticleService {
     int validateGroupId(Integer groupId, int countGroup);
 
     ArticleModel findById(final long id);
+
+    ArticleModel save(ArticleModel article);
 }

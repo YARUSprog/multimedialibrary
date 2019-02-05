@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface SubjectService {
     List<SubjectModel> findAll();
+
+    SubjectModel findById(Long id);
 }

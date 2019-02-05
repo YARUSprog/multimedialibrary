@@ -18,4 +18,9 @@ public class SubjectServiceImpl implements SubjectService {
     public List<SubjectModel> findAll() {
         return subjectRepository.findAllByOrderByNameAsc();
     }
+
+    @Override
+    public SubjectModel findById(final Long id) {
+        return subjectRepository.findOne(id);
+    }
 }

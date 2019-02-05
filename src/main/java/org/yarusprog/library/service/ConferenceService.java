@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ConferenceService {
     List<ConferenceModel> findAll();
+
+    ConferenceModel findById(long id);
 }

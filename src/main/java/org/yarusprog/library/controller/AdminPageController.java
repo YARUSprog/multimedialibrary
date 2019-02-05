@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MimeType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.facade.ConferenceFacade;
 import org.yarusprog.library.facade.SubjectFacade;
 import org.yarusprog.library.facade.UserFacade;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 @Controller
 public class AdminPageController {
@@ -53,20 +58,23 @@ public class AdminPageController {
 
     @PostMapping("/article")
     @ResponseBody
-//    @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity createArticle(Model model, @RequestBody @Valid CreateArticleDto article, BindingResult bindingResult) {
         HttpHeaders headers = new HttpHeaders();
+        logger.warn("Test articleDto data: " + article);
         if (bindingResult.hasErrors()) {
             ObjectError error = bindingResult.getAllErrors().stream().findFirst().get();
-//            model.addAttribute("validationError", error.getDefaultMessage());
             headers.set("message",  error.getDefaultMessage());
             return new ResponseEntity(headers, HttpStatus.EXPECTATION_FAILED);
         }
-        headers.set("message",  "Created successful");
-        logger.warn("Test articleDto data: " + article);
-        return new ResponseEntity(headers, HttpStatus.OK);
 
-//        return "fragments/notActivatedUsers";
+        if (Objects.isNull(articleFacade.save(article))) {
+            headers.set("message", "Статтю створити не вдалося !");
+            return new ResponseEntity(headers, HttpStatus.CONFLICT);
+        }
+
+        headers.set("message",  "Стаття успішно створена !");
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/users")

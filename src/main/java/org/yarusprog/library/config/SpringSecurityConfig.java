@@ -1,5 +1,6 @@
 package org.yarusprog.library.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -34,8 +35,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/article/*", "/index", "/contacts",
-                        "/", "/home", "/about", "/test", "/registration", "/registrationTemp").permitAll()
-                .antMatchers("/admin", "/activateUser/*", "/notActivatedUsers", "/users", "/createArticle", "/conferences", "/subjects", "/article").hasAnyAuthority("ADMIN")
+                        "/", "/home", "/about", "/test", "/registration", "/registrationTemp",
+                        "/admin", "/activateUser/*", "/notActivatedUsers", "/users", "/createArticle", "/conferences", "/subjects", "/article").permitAll()
+//                .antMatchers("/admin", "/activateUser/*", "/notActivatedUsers", "/users", "/createArticle", "/conferences", "/subjects", "/article").hasAnyAuthority("ADMIN")
                 .antMatchers("/user").hasAnyAuthority("AUTHOR", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -70,5 +72,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 }

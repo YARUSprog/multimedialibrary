@@ -9,7 +9,7 @@ import java.util.Objects;
 public class UserRegisterTokenModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 

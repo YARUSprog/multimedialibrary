@@ -19,4 +19,9 @@ public class ConferenceServiceImpl implements ConferenceService {
     public List<ConferenceModel> findAll() {
         return conferenceRepository.findAllByOrderByNameAsc();
     }
+
+    @Override
+    public ConferenceModel findById(final long id) {
+        return conferenceRepository.findOne(id);
+    }
 }

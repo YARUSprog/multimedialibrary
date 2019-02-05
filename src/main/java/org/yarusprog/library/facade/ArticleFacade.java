@@ -1,7 +1,9 @@
 package org.yarusprog.library.facade;
 
 import org.yarusprog.library.dto.ArticleDto;
+import org.yarusprog.library.dto.CreateArticleDto;
 import org.yarusprog.library.dto.PageArticlesDto;
+import org.yarusprog.library.model.ArticleModel;
 
 import java.util.Date;
 import java.util.List;
@@ -22,4 +24,6 @@ public interface ArticleFacade {
     int getEndGroupPagination(Integer groupId, int countGroup);
 
     int validateGroupId(Integer groupId, int countGroup);
+
+    Long save(CreateArticleDto article);
 }

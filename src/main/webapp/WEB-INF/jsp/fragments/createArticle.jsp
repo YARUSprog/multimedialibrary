@@ -92,57 +92,53 @@
         console.log("method: " + method);
         console.log("formData: " + formData);
 
-        $.ajax({
+        var xhr = $.ajax({
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json;charset=UTF-8',
+                'Content-Type': 'application/json;charset=UTF-8'
             },
             type: method,
             url: formUrl,
             data: formData,
-            statusCode: {
-                200: function (data) {
-                    M.toast({
-                        html: data.getResponseHeader("message"), timeRemaining: 10000
-                    });
-                },
-                201: function (data) {
-                    M.toast({
-                        html: data.getResponseHeader("message"), timeRemaining: 10000
-                    });
-                    // M.toast(data.getResponseHeader("successMessage"), 10000);
-                },
-                417: function (data) {
-                    M.toast({
-                        html: data.getResponseHeader("message"), timeRemaining: 10000
-                    });
-                    // M.toast(data.getResponseHeader("validationMessage"), 10000);
-                },
-                500: function (data) {
-                    M.toast({
-                        html: data.getResponseHeader("message"), timeRemaining: 10000
-                    });
-                    // M.toast(data.getResponseHeader("errorMessage"), 10000, 'red');
-                }
-            }
+            // statusCode: {
+            //     200: function (data) {
+            //         M.toast({
+            //             html: xhr.getResponseHeader("message"), timeRemaining: 10000
+            //         });
+            //     },
+            //     201: function (data) {
+            //         M.toast({
+            //             html: xhr.getResponseHeader("message"), timeRemaining: 10000
+            //         });
+            //         // M.toast(data.getResponseHeader("successMessage"), 10000);
+            //     },
+            //     417: function (data) {
+            //         M.toast({
+            //             html: xhr.getResponseHeader("message"), timeRemaining: 10000
+            //         });
+            //         // M.toast(data.getResponseHeader("validationMessage"), 10000);
+            //     },
+            //     500: function (data) {
+            //         M.toast({
+            //             html: xhr.getResponseHeader("message"), timeRemaining: 10000
+            //         });
+            //         // M.toast(data.getResponseHeader("errorMessage"), 10000, 'red');
+            //     }
+            // }
             // ,
 
-            // success: function (data) {
-            //     console.log("Data from ajax success:" + data);
-            //     window.location.hash = "#/createArticle";
-            //     M.toast({
-            //         html: data.getResponseHeader("message"), timeRemaining: 10000
-            //         // html: "Стаття успішно створена", timeRemaining: 10000
-            //     });
-            // },
-            // error: function (data) {
-            //     console.log("Data from ajax error:" + data);
-            //     window.location.hash = "#/createArticle";
-            //     M.toast({
-            //         html: data.getResponseHeader("message"), timeRemaining: 10000
-            //         // html: "Помилка, статтю створити не вдалося.", timeRemaining: 10000
-            //     });
-            // }
+            success: function (data) {
+                loadSubPage("/createArticle");
+                M.toast({
+                    html: xhr.getResponseHeader("message"), timeRemaining: 10000
+                });
+            },
+            error: function (data) {
+                // loadSubPage("/createArticle");
+                M.toast({
+                    html: xhr.getResponseHeader("message"), timeRemaining: 10000
+                });
+            }
         });
     });
 

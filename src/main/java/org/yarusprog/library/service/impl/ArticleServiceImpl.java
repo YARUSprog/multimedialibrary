@@ -88,4 +88,9 @@ public class ArticleServiceImpl implements ArticleService {
             groupId = countGroup-1;
         return groupId;
     }
+
+    @Override
+    public ArticleModel save(ArticleModel article) {
+        return articleRepository.save(article);
+    }
 }
