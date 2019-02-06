@@ -26,11 +26,12 @@
             <a href="#/createArticle" class="collection-item">Додати статтю</a>
             <a href="#/conferences" class="collection-item">Конференції</a>
             <a href="#/subjects" class="collection-item">Теми</a>
+            <a href="#/files" class="collection-item">Файли</a>
 
-            <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
+            <!--<a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
             <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
             <a href="#!" class="collection-item">Alan</a>
-            <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>
+            <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>-->
 
         </div>
         <!-- Grey navigation panel
@@ -63,60 +64,8 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="/js/materialize.js"></script>
 <script src="/js/init.js"></script>
+<script src="/js/select-init.js"></script>
+<script src="/js/custom.js"></script>
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-        // Bind a callback that executes when document.location.hash changes.
-        $(window).bind("hashchange", function (e) {
-
-
-            var url = window.location.hash.replace("#", "");
-
-            if (url == "/notActivatedUsers" || url == "/users" || url == "/createArticle" ||
-                url == "/conferences" || url == "/subjects") {
-                loadSubPage(url);
-            }
-        });
-    });
-
-    function activateUser(activateUrl) {
-        $.ajax({
-            type: 'PUT',
-            url: activateUrl,
-            data: null,
-            success: function () {
-                loadSubPage("/notActivatedUsers")
-                //window.location.reload();
-            }
-        });
-    }
-
-
-
-    function loadSubPage(url) {
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: null,
-            success: function (receivedView) {
-                $("#content").html(receivedView);
-            }
-        });
-        console.log("url: " + url);
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, options);
-    });
-
-    // Or with jQuery
-
-    $(document).ready(function () {
-        $('select').formSelect();
-    });
-</script>
 </body>
 </html>

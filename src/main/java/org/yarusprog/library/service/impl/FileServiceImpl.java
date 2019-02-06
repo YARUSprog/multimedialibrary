@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.yarusprog.library.dto.FileDto;
 import org.yarusprog.library.model.FileModel;
 import org.yarusprog.library.model.UserModel;
 import org.yarusprog.library.repository.FileRepository;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -25,7 +27,7 @@ public class FileServiceImpl implements FileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileServiceImpl.class);
 
     @Value("${upload.images.path}")
-    private static String uploadPath;
+    private static String uploadPath = "uploadedFiles/";
 
     @Autowired
     private FileRepository fileRepository;
@@ -42,11 +44,16 @@ public class FileServiceImpl implements FileService {
     public void save(final MultipartFile multipartFile) {
         FileModel fileModel = new FileModel();
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserModel user = userService.findUserByEmail(userEmail);
-        final String pathToUserFile = uploadPath + user.getId() + "/";
+        LOGGER.warn("When save file - userEmail: " + userEmail);
+        UserModel user = userService.findUserByEmail("admin@gmail.com");
+        final String pathToUserFile = new StringBuilder().append(uploadPath).append(user.getId()).append("/").toString();
+        LOGGER.warn("When save file - user: " + user);
+        LOGGER.warn("When save file - multipartFile: " + multipartFile);
 
-        new File(uploadPath).mkdir();
-        new File(pathToUserFile).mkdir();
+
+
+//        new File(uploadPath).mkdir();
+        new File(pathToUserFile).mkdirs();
         final Path filePath = Paths.get(pathToUserFile, multipartFile.getOriginalFilename());
         try {
             Files.write(filePath, multipartFile.getBytes());
@@ -59,5 +66,12 @@ public class FileServiceImpl implements FileService {
         save(fileModel);
 
         LOGGER.info("File " + multipartFile.getOriginalFilename() + " for user " + user.getEmail() + " successfully uploaded !");
+    }
+
+    @Override
+    public List<FileModel> getAllSessionUserFiles() {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserModel user = userService.findUserByEmail(userEmail);
+        return fileRepository.findAllByUser(user);
     }
 }

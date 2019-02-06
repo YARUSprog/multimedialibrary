@@ -107,9 +107,16 @@ public class AdminPageController {
         return "fragments/subjects";
     }
 
+    @GetMapping("/files")
+    public String getFiles(Model model) {
+        model.addAttribute("files", fileFacade.getAllSessionUserFiles());
+        return "fragments/userFiles";
+    }
+
     @PostMapping("/file/upload")
     @ResponseStatus(value = HttpStatus.CREATED)
     public void uploadFile(@RequestParam(value = "file", required = true) MultipartFile file) {
+        logger.warn("Test file data: " + file);
         fileFacade.save(file);
     }
 }
