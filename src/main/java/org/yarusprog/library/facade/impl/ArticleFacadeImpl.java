@@ -1,10 +1,5 @@
 package org.yarusprog.library.facade.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -15,6 +10,11 @@ import org.yarusprog.library.dto.PageArticlesDto;
 import org.yarusprog.library.facade.ArticleFacade;
 import org.yarusprog.library.model.ArticleModel;
 import org.yarusprog.library.service.ArticleService;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component("articleFacade")
 public class ArticleFacadeImpl implements ArticleFacade {

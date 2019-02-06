@@ -4,23 +4,29 @@
 <div class="card-content">
     <form id="create-article-form" action="/article" method="post">
         <div class="row">
-            <div class='input-field col s6'>
+            <div class='input-field col s12'>
                 <i class="material-icons prefix Small">title</i>
                 <input class='validate' type='text' name='title' id='title'/>
                 <label for='title'>Заголовок*</label>
             </div>
 
-            <div class='input-field col s6'>
+        </div>
+        <div class="row">
+            <div class='input-field col s12' id="text-wrapper">
                 <i class="material-icons prefix Small">title</i>
-                <input class='validate' type='text' name='text' id='text'/>
-                <label for='text'>Текст*</label>
+                <%--<input class='validate' type='text' name='text' id='text'/>--%>
+                <textarea id="text" class="full-text" name="text"></textarea>
+                <script type="text/javascript">
+                    var editor = CKEDITOR.replace('text');
+                </script>
             </div>
+            <%--<label for='text-wrapper'>Текст*</label>--%>
         </div>
         <div class="row">
             <div class='input-field col s6'>
                 <i class="material-icons prefix Small">title</i>
                 <input class='validate' type='date' name='updateDate' id='updateDate'/>
-                <label for='updateDate'>Текст*</label>
+                <label for='updateDate'>Дата*</label>
             </div>
 
             <div class="input-field col s6">
@@ -81,6 +87,8 @@
 
     $("#create-article-form").submit(function (event) {
         event.preventDefault();
+
+        updateAllMessageForms();
 
         var $form = $(this);
         var formUrl = $form.attr('action');
@@ -162,6 +170,13 @@
         });
 
         return JSON.stringify(indexed_array);
+    }
+
+    function updateAllMessageForms()
+    {
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
     }
 
 </script>

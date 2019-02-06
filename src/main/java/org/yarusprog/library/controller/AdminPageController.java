@@ -1,7 +1,5 @@
 package org.yarusprog.library.controller;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +9,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MimeType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.yarusprog.library.dto.ArticleDto;
+import org.springframework.web.multipart.MultipartFile;
 import org.yarusprog.library.dto.CreateArticleDto;
-import org.yarusprog.library.facade.ArticleFacade;
-import org.yarusprog.library.facade.ConferenceFacade;
-import org.yarusprog.library.facade.SubjectFacade;
-import org.yarusprog.library.facade.UserFacade;
+import org.yarusprog.library.facade.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -41,6 +36,9 @@ public class AdminPageController {
 
     @Autowired
     private ConferenceFacade conferenceFacade;
+
+    @Autowired
+    private FileFacade fileFacade;
 
     @GetMapping("/admin")
     public String getAdmin(Model model) {
@@ -107,5 +105,11 @@ public class AdminPageController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public String getSubjects(Model model) {
         return "fragments/subjects";
+    }
+
+    @PostMapping("/file/upload")
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public void uploadFile(@RequestParam(value = "file", required = true) MultipartFile file) {
+        fileFacade.save(file);
     }
 }

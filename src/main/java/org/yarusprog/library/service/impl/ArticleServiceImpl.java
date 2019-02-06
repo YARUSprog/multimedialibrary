@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.yarusprog.library.model.ArticleModel;
 import org.yarusprog.library.repository.ArticleRepository;
+import org.yarusprog.library.repository.SubjectRepository;
+import org.yarusprog.library.repository.UserRepository;
 import org.yarusprog.library.service.ArticleService;
 
 import java.util.Date;
@@ -19,6 +21,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SubjectRepository subjectService;
 
     @Override
     public List<ArticleModel> findAll() {
@@ -91,6 +99,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleModel save(ArticleModel article) {
-        return articleRepository.save(article);
+        ArticleModel savedArticle = articleRepository.save(article);
+        savedArticle.getUsers().stream().forEach(userModel -> {
+            userModel.getArticles().add(savedArticle);
+            userRepository.save(userModel);
+        });
+        savedArticle.getSubjects().stream().forEach(subjectModel -> {
+            subjectModel.getArticles().add(savedArticle);
+            subjectService.save(subjectModel);
+        });
+        return savedArticle;
     }
 }
